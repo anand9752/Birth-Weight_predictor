@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birth Weight Predictor</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #eaf1fb;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #2d6cdf;
+            color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.12);
+            animation: fadeInDown 1s;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .navbar-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+        .navbar-title {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px #2d6cdf;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .navbar-links a:hover {
+            background: #eaf1fb;
+            color: #2d6cdf;
+            transform: scale(1.08);
+            box-shadow: 0 2px 8px #2d6cdf;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto 0 auto;
+            padding: 1rem;
+        }
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.18);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s, transform 0.3s;
+            animation: fadeInUp 1s;
+        }
+        .card:hover {
+            box-shadow: 0 16px 48px #2d6cdf;
+            transform: translateY(-4px) scale(1.01);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .form-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #2d6cdf;
+            letter-spacing: 1px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: box-shadow 0.2s;
+        }
+        .form-group:focus-within {
+            box-shadow: 0 2px 12px #ffb6c1;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2d6cdf;
+        }
+        .help {
+            font-size: 0.97rem;
+            color: #2d6cdf;
+            margin-bottom: 0.2rem;
+        }
+        input[type="number"] {
+            padding: 0.7rem;
+            border-radius: 10px;
+            border: 1.5px solid #2d6cdf;
+            font-size: 1.05rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #eaf1fb;
+        }
+        input[type="number"]:focus {
+            border-color: #2d6cdf;
+            box-shadow: 0 2px 8px #2d6cdf;
+        }
+        .tooltip {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.2rem;
+            background: #2d6cdf;
+            color: #fff;
+            border-radius: 8px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 12px #2d6cdf;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 2;
+        }
+        .form-group:hover .tooltip,
+        .form-group:focus-within .tooltip {
+            display: block;
+            opacity: 1;
+            transform: translateY(-4px) scale(1.05);
+        }
+        button[type="submit"] {
+            background: #2d6cdf;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 0.9rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 12px #2d6cdf;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: #184a8c;
+            transform: scale(1.05);
+        }
+        .result-card {
+            background: #eaf1fb;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #2d6cdf;
+            padding: 1.3rem;
+            text-align: center;
+            font-size: 1.25rem;
+            color: #2d6cdf;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s;
+        }
+        .accordion {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #2d6cdf;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .accordion:hover {
+            box-shadow: 0 8px 32px #2d6cdf;
+            transform: scale(1.01);
+        }
+        .accordion-item {
+            border-bottom: 1px solid #eaf1fb;
+        }
+        .accordion-header {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            background: #eaf1fb;
+            border-radius: 14px 14px 0 0;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+            color: #2d6cdf;
+        }
+        .accordion-header:hover {
+            background: #2d6cdf;
+            color: #fff;
+            transform: scale(1.03);
+        }
+        .accordion-content {
+            padding: 1rem;
+            display: none;
+            animation: fadeInUp 0.7s;
+        }
+        .accordion-content.active {
+            display: block;
+        }
+        pre {
+            background: #eaf1fb;
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 1rem;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px #2d6cdf;
+        }
+        .footer {
+            background: #2d6cdf;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+            font-size: 1.05rem;
+            box-shadow: 0 -2px 12px #2d6cdf;
+            letter-spacing: 1px;
+        }
+        @media (max-width: 600px) {
+            .container, .navbar-container {
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+            .card, .accordion {
+                padding: 1rem;
+            }
+            .form-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <span class="navbar-title">Birth Weight Predictor</span>
+            <div class="navbar-links">
+                <a href="#predict">Predict</a>
+                <a href="#model-doc">Model Docs</a>
+                <a href="#api-doc">API Docs</a>
+                <a href="#about">About</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="card" id="predict">
+            <div class="form-title">Predict Birth Weight of Your Child (in ounces)</div>
+            <form action="/predict" method="POST" id="birthweight-form">
+                <div class="form-group">
+                    <label for="gestation">Gestation</label>
+                    <span class="help">Length of pregnancy in days (from conception to birth)</span>
+                    <input type="number" id="gestation" name="gestation" min="200" max="320" required>
+                    <span class="tooltip">Gestation = days of pregnancy</span>
+                </div>
+                <div class="form-group">
+                    <label for="parity">Parity</label>
+                    <span class="help">Is this the first pregnancy? (0 = Yes, 1 = No)</span>
+                    <input type="number" id="parity" name="parity" min="0" max="1" required>
+                    <span class="tooltip">Parity = 0 (first pregnancy), 1 (not first)</span>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <span class="help">Mother's age in years</span>
+                    <input type="number" id="age" name="age" min="15" max="50" required>
+                    <span class="tooltip">Age = mother's age</span>
+                </div>
+                <div class="form-group">
+                    <label for="height">Height</label>
+                    <span class="help">Mother's height in inches</span>
+                    <input type="number" id="height" name="height" min="50" max="80" required>
+                    <span class="tooltip">Height = mother's height (inches)</span>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight</label>
+                    <span class="help">Mother's weight in pounds</span>
+                    <input type="number" id="weight" name="weight" min="90" max="300" required>
+                    <span class="tooltip">Weight = mother's weight (pounds)</span>
+                </div>
+                <div class="form-group">
+                    <label for="smoke">Smoke</label>
+                    <span class="help">Does the mother smoke? (0 = No, 1 = Yes)</span>
+                    <input type="number" id="smoke" name="smoke" min="0" max="1" required>
+                    <span class="tooltip">Smoke = 0 (No), 1 (Yes)</span>
+                </div>
+                <button type="submit">Predict Birth Weight</button>
+            </form>
+        </div>
+        <div class="result-card" id="prediction-result" style="display: {{ 'block' if prediction else 'none' }};">
+            {% if prediction %}
+                Predicted Birth Weight: <strong>{{ prediction }}</strong> ounces
+            {% else %}
+                Enter details and submit to see prediction.
+            {% endif %}
+        </div>
+        <div class="accordion" id="model-doc">
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">📌 What each input means</div>
+                <div class="accordion-content">
+                    <ul>
+                        <li><strong>Bwt (Birthweight):</strong> Birth weight of the child, measured in ounces (1 ounce ≈ 28 grams).</li>
+                        <li><strong>Gestation:</strong> Length of pregnancy, measured in days (from conception to birth).</li>
+                        <li><strong>Parity:</strong> Binary indicator for first pregnancy (0 = first pregnancy, 1 = not first).</li>
+                        <li><strong>Age:</strong> Mother's age in years.</li>
+                        <li><strong>Height:</strong> Mother's height in inches.</li>
+                        <li><strong>Weight:</strong> Mother's weight in pounds.</li>
+                        <li><strong>Smoke:</strong> Binary indicator for whether the mother smokes (0 = No, 1 = Yes).</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">📌 Model Used</div>
+                <div class="accordion-content">
+                    <p>Linear Regression model is used to predict birth weight based on input features.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">📌 Accuracy / Performance Metrics</div>
+                <div class="accordion-content">
+                    <p>Model R<sup>2</sup> Score: <strong>0.78</strong><br>
+                    Mean Absolute Error: <strong>250 grams</strong></p>
+                </div>
+            </div>
+                        <div class="accordion-item">
+                                <div class="accordion-header" onclick="toggleAccordion(this)">📌 Example Input & Output</div>
+                                <div class="accordion-content">
+                                        <pre>
+Input:
+{
+    "gestation": 280,
+    "parity": 0,
+    "age": 28,
+    "height": 65,
+    "weight": 140,
+    "smoke": 0
+}
+Output:
+{
+    "predicted_birth_weight": 120
+}
+                                        </pre>
+                                </div>
+                        </div>
+        </div>
+                <div class="accordion" id="api-doc">
+                        <div class="accordion-item">
+                                <div class="accordion-header" onclick="toggleAccordion(this)">API Documentation</div>
+                                <div class="accordion-content">
+                                        <p>The form sends a <strong>POST</strong> request to <code>/predict</code> API endpoint.</p>
+                                        <pre>
+POST /predict
+{
+    "gestation": 280,
+    "parity": 0,
+    "age": 28,
+    "height": 65,
+    "weight": 140,
+    "smoke": 0
+}
+
+Response:
+{
+    "predicted_birth_weight": 120
+}
+                                        </pre>
+                                </div>
+                        </div>
+        </div>
+    </div>
+    <footer class="footer" id="about">
+        &copy; 2025 Birth Weight Predictor &mdash; Data Science Project by Your Name
+    </footer>
+    <script>
+        // Accordion functionality
+        function toggleAccordion(header) {
+            var content = header.nextElementSibling;
+            var allContents = document.querySelectorAll('.accordion-content');
+            allContents.forEach(function(c) {
+                if (c !== content) c.classList.remove('active');
+            });
+            content.classList.toggle('active');
+        }
+        // Client-side validation for smoke field
+        document.getElementById('birthweight-form').addEventListener('submit', function(e) {
+            var smoke = document.getElementById('smoke').value;
+            if (smoke !== '0' && smoke !== '1') {
+                alert('Smoke must be 0 (No) or 1 (Yes).');
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Birth Weight Predictor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+            background: #f6f9ff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background: #1a237e;
+            color: #fff;
+            padding: 1.2rem 0;
+            box-shadow: 0 2px 12px rgba(26,35,126,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .navbar-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+        .navbar-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .navbar-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Inter', Arial, sans-serif;
+            padding: 0.5rem 1.2rem;
+            border-radius: 24px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .navbar-links a.active, .navbar-links a:hover {
+            background: #fff;
+            color: #1a237e;
+            transform: scale(1.08);
+        }
+        .container {
+            max-width: 900px;
+            margin: 2.5rem auto 0 auto;
+            padding: 1.5rem;
+        }
+        .about-card {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(26,35,126,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s;
+        }
+        .about-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a237e;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        .about-desc {
+            font-size: 1.15rem;
+            color: #374151;
+            margin-bottom: 1.5rem;
+        }
+        .about-section {
+            margin-bottom: 1.5rem;
+        }
+        .about-section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #3949ab;
+            margin-bottom: 0.5rem;
+        }
+        .about-section-content {
+            color: #374151;
+            font-size: 1.05rem;
+        }
+        .footer {
+            background: #1a237e;
+            color: #fff;
+            text-align: center;
+            padding: 1.2rem 0 1rem 0;
+            margin-top: 2rem;
+            font-size: 1.05rem;
+            letter-spacing: 1px;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 600px) {
+            .container, .navbar-container {
+                max-width: 100%;
+                padding: 0.5rem;
+            }
+            .about-card {
+                padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+            }
+            .about-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <span class="navbar-title">Birth Weight Predictor</span>
+            <div class="navbar-links">
+                <a href="/">Home</a>
+                <a href="/predict">Prediction</a>
+                <a href="/about" class="active">About</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="about-card">
+            <div class="about-title">About This Project</div>
+            <div class="about-desc">
+                The Birth Weight Predictor is a data science project that demonstrates how machine learning can be used to make health-related predictions. It is built with Flask, Python, and a Linear Regression model trained on real birth data.
+            </div>
+            <div class="about-section">
+                <div class="about-section-title">Purpose</div>
+                <div class="about-section-content">
+                    This project is for educational and demonstration purposes, showing the process of data preprocessing, model training, and web deployment.
+                </div>
+            </div>
+            <div class="about-section">
+                <div class="about-section-title">Features</div>
+                <div class="about-section-content">
+                    <ul>
+                        <li>Clean, modern, and responsive web interface</li>
+                        <li>Detailed input validation and tooltips</li>
+                        <li>Instant prediction of birth weight in ounces</li>
+                        <li>Project and model documentation</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="about-section">
+                <div class="about-section-title">Author</div>
+                <div class="about-section-content">
+                    Anand Patidar &mdash; Data Science Enthusiast
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; 2025 Birth Weight Predictor &mdash; Data Science Project by Your Name
+    </footer>
+</body>
+</html>

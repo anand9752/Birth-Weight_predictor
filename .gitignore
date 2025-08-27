@@ -1,0 +1,8 @@
+myvenv/
+dataset/
+model_training.ipynb
+__pycache__/
+*.pyc
+*.pkl
+.env
+.DS_Store
