@@ -1,4 +1,4 @@
-# Birth Weight Predictor
+# 👶🏼 Birth Weight Predictor ⚖️
 
 A modern, interactive web application that predicts the birth weight of a baby using maternal and pregnancy-related data. Built with Flask, Python, and a machine learning model (Linear Regression), this project demonstrates the end-to-end workflow of a data science solution, from data preprocessing to deployment.
 
